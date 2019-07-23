@@ -25,7 +25,23 @@ public class Rover {
     }
 
     private Vector moveForward() {
-        return null;
+        switch (vector.direction){
+            case 'N':
+                vector = new Vector(vector.x, vector.y + 1, vector.direction);
+                break;
+            case 'E':
+                vector = new Vector(vector.x + 1, vector.y , vector.direction);
+                break;
+            case 'W':
+                vector = new Vector(vector.x - 1, vector.y, vector.direction);
+                break;
+            case 'S':
+                vector = new Vector(vector.x, vector.y - 1, vector.direction);
+                break;
+
+        }
+
+        return vector;
     }
 
     public Vector vector(){
