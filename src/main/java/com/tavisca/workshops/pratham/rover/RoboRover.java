@@ -1,61 +1,56 @@
 package com.tavisca.workshops.pratham.rover;
 
 import com.tavisca.workshops.pratham.rover.model.Command;
-import com.tavisca.workshops.pratham.rover.model.Position;
-import com.tavisca.workshops.pratham.rover.model.RoboState;
+import com.tavisca.workshops.pratham.rover.model.Vector;
 
 public class RoboRover {
-    private RoboState state;
+    private Vector vector;
 
-    public RoboRover(RoboState initialState) {
-        this.state = initialState;
+    public RoboRover(Vector initialState) {
+        this.vector = initialState;
     }
 
-    public RoboRover() {
-        this(new RoboState());
-    }
-
-    public RoboState rove(Command command){
+    public Vector rove(Command command){
         switch(command){
             case TURN_LEFT:
-                state.setDirection(state.getDirection().turnLeft());
+                vector = new Vector(vector.x, vector.y, vector.direction.turnLeft());
                 break;
             case TURN_RIGHT:
-                state.setDirection(state.getDirection().turnRight());
+                vector = new Vector(vector.x, vector.y, vector.direction.turnRight());
                 break;
             case MOVE_FORWARD:
                 moveForward();
                 break;
         }
-        return state;
+
+        return vector;
     }
 
-    public RoboState rove(Command[] commands){
+    public Vector rove(Command[] commands){
         for(Command command : commands) {
             rove(command);
         }
-        return state;
+        return vector;
     }
 
     public void moveForward(){
-        Position position = state.getPosition();
-        switch (state.getDirection()){
+        switch (vector.direction){
             case NORTH:
-                position.setY(position.getY() + 1);
+                vector = new Vector(vector.x, vector.y + 1, vector.direction);
                 break;
             case EAST:
-                position.setX(position.getX() + 1);
+                vector = new Vector(vector.x + 1, vector.y, vector.direction);
                 break;
             case SOUTH:
-                position.setY(position.getY() - 1);
+                vector = new Vector(vector.x, vector.y - 1, vector.direction);
                 break;
             case WEST:
-                position.setX(position.getX() - 1);
+                vector = new Vector(vector.x - 1, vector.y, vector.direction);
                 break;
         }
     }
 
-    public RoboState getState() {
-        return state;
+    public Vector getState() {
+        return vector;
     }
 }
