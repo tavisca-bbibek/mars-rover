@@ -9,6 +9,9 @@ import java.security.InvalidParameterException;
 
 public class MarsRoboRover {
 
+	public static int x = 0;
+	public static int y = 0;
+	private static String dir = "";
 	public static void main(String[] args) {
 
 		String currentPosition = "3 3 E";
@@ -16,24 +19,50 @@ public class MarsRoboRover {
 
 		String[] positions = currentPosition.split(" ");
 
-		int x = Integer.valueOf(positions[0]);
-		int y = Integer.valueOf(positions[1]);
+		 x = Integer.valueOf(positions[0]);
+		 y = Integer.valueOf(positions[1]);
 		Position position = new Position(x, y);
 
-		String dir = positions[2];
+		dir = positions[2];
 		Direction direction = parseDirection(dir.charAt(0));
 
 		RoboState currentState = new RoboState(position, direction);
 
 		Command[] commands = extractCommands(commandString);
 
-		RoboRober roboRober = new RoboRober(currentState);
+		RoboRover roboRober = new RoboRover(currentState);
 		RoboState newState = roboRober.rove(commands);
 
 		System.out.println("currentPosition..." + currentPosition);
 		System.out.println("commands..." + commandString);
-		System.out.println("newPosition..." + newState.getPosition().getX() + " " + newState.getPosition().getY()
-				+ " " + newState.getDirection());
+
+		System.out.println("NewPosition...");
+		System.out.print("Old Implementation: ");
+		for(char command : commandString.toCharArray()) {
+			rove(command);
+		}
+		System.out.println(x + " " + y + " " + dir);
+
+		System.out.println("New Implementation: " + newState.getPosition().getX() + " " + newState.getPosition().getY()
+				+ " " + toDirectionChar(newState.getDirection()));
+
+
+	}
+
+	private static char toDirectionChar(Direction direction) {
+		switch (direction){
+			case NORTH:
+				return 'N';
+			case EAST:
+				return 'E';
+			case SOUTH:
+				return 'S';
+			case WEST:
+				return 'W';
+			default:
+				return 'U';
+
+		}
 	}
 
 	private static Direction parseDirection(char direction) {
@@ -73,7 +102,7 @@ public class MarsRoboRover {
 		return commands;
 	}
 
-	/*private static void rove(char command) {
+	private static void rove(char command) {
 		if (dir.equalsIgnoreCase("N")) {
 			switch (command) {
 			case 'L':
@@ -123,6 +152,6 @@ public class MarsRoboRover {
 				break;
 			}
 		}
-	}*/
+	}
 
 }

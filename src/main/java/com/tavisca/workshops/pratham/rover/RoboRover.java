@@ -1,18 +1,17 @@
 package com.tavisca.workshops.pratham.rover;
 
 import com.tavisca.workshops.pratham.rover.model.Command;
-import com.tavisca.workshops.pratham.rover.model.Direction;
 import com.tavisca.workshops.pratham.rover.model.Position;
 import com.tavisca.workshops.pratham.rover.model.RoboState;
 
-public class RoboRober {
+public class RoboRover {
     private RoboState state;
 
-    public RoboRober(RoboState initialState) {
+    public RoboRover(RoboState initialState) {
         this.state = initialState;
     }
 
-    public RoboRober() {
+    public RoboRover() {
         this(new RoboState());
     }
 
