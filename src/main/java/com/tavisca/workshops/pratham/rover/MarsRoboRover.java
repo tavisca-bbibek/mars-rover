@@ -1,30 +1,79 @@
 package com.tavisca.workshops.pratham.rover;
 
+import com.tavisca.workshops.pratham.rover.model.Command;
+import com.tavisca.workshops.pratham.rover.model.Direction;
+import com.tavisca.workshops.pratham.rover.model.Position;
+import com.tavisca.workshops.pratham.rover.model.RoboState;
+
+import java.security.InvalidParameterException;
+
 public class MarsRoboRover {
-	private static int y = 0;
-	private static int x = 0;
-	private static String dir = "";
 
 	public static void main(String[] args) {
 
 		String currentPosition = "3 3 E";
-		String commands = "MMRMMRMRRM";
+		String commandString = "MMRMMRMRRM";
 
 		String[] positions = currentPosition.split(" ");
-		x = Integer.valueOf(positions[0]);
-		y = Integer.valueOf(positions[1]);
-		dir = positions[2];
 
-		for (char command : commands.toCharArray()) {
-			rove(command);
-		}
+		int x = Integer.valueOf(positions[0]);
+		int y = Integer.valueOf(positions[1]);
+		Position position = new Position(x, y);
+
+		String dir = positions[2];
+		Direction direction = parseDirection(dir.charAt(0));
+
+		RoboState currentState = new RoboState(position, direction);
+
+		Command[] commands = extractCommands(commandString);
+
+		RoboRober roboRober = new RoboRober(currentState);
+		RoboState newState = roboRober.rove(commands);
 
 		System.out.println("currentPosition..." + currentPosition);
-		System.out.println("commands..." + commands);
-		System.out.println("newPosition..." + x + " " + y + " " + dir);
+		System.out.println("commands..." + commandString);
+		System.out.println("newPosition..." + newState.getPosition().getX() + " " + newState.getPosition().getY()
+				+ " " + newState.getDirection());
 	}
 
-	private static void rove(char command) {
+	private static Direction parseDirection(char direction) {
+		switch (direction){
+			case 'N':
+				return Direction.NORTH;
+			case 'E':
+				return Direction.EAST;
+			case 'S':
+				return Direction.SOUTH;
+			case 'W':
+				return Direction.WEST;
+			default:
+				throw new InvalidParameterException();
+		}
+	}
+
+	private static Command[] extractCommands(String commandString){
+		Command[] commands = new Command[commandString.length()];
+		int commandsIndex = 0;
+
+		for (char command : commandString.toCharArray()) {
+			switch(command){
+				case 'L':
+					commands[commandsIndex++] = Command.TURN_LEFT;
+					break;
+				case 'R':
+					commands[commandsIndex++] = Command.TURN_RIGHT;
+					break;
+				case 'M':
+					commands[commandsIndex++] = Command.MOVE_FORWARD;
+					break;
+				default:
+					throw new InvalidParameterException();
+			}
+		}
+		return commands;
+	}
+
+	/*private static void rove(char command) {
 		if (dir.equalsIgnoreCase("N")) {
 			switch (command) {
 			case 'L':
@@ -74,6 +123,6 @@ public class MarsRoboRover {
 				break;
 			}
 		}
-	}
+	}*/
 
 }
