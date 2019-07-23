@@ -13,10 +13,10 @@ public class RoboRover {
     public Vector rove(Command command){
         switch(command){
             case TURN_LEFT:
-                vector = new Vector(vector.x, vector.y, vector.direction.turnLeft());
+                vector = vector.turnLeft();
                 break;
             case TURN_RIGHT:
-                vector = new Vector(vector.x, vector.y, vector.direction.turnRight());
+                vector = vector.turnRight();
                 break;
             case MOVE_FORWARD:
                 moveForward();

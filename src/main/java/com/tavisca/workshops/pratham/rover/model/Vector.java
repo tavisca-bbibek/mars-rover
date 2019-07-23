@@ -9,4 +9,13 @@ public class Vector {
         this.y = y;
         this.direction = direction;
     }
+
+
+    public Vector turnLeft() {
+        return new Vector(x, y, direction.turnLeft());
+    }
+
+    public Vector turnRight() {
+        return new Vector(x, y, direction.turnRight());
+    }
 }
