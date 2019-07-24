@@ -34,15 +34,30 @@ public class Vector {
             throw new InvalidParameterException("Invalid direction.");
     }
 
-    public Vector turnLeft() {
+    public Vector left() {
         return new Vector(x, y, leftMap.get(direction));
     }
 
-    public Vector turnRight() {
+    public Vector right() {
         return new Vector(x, y, rightMap.get(direction));
     }
 
-   /* public Vector turnLeft() {
+    public Vector next() {
+        switch (direction) {
+            case 'N':
+                return new Vector(x, y + 1, direction);
+            case 'E':
+                return new Vector(x + 1, y, direction);
+            case 'W':
+                return new Vector(x - 1, y, direction);
+            case 'S':
+                return new Vector(x, y - 1, direction);
+            default:
+                throw new InvalidParameterException("Invalid direction: " + direction);
+        }
+    }
+
+   /* public Vector left() {
         char[] directions = {'N', 'E', 'S', 'W'};
         int i;
         for(i = 0; i < directions.length; i++){

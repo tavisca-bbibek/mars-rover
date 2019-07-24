@@ -12,35 +12,15 @@ public class Rover {
     public Vector rove(Command command) {
         switch (command){
             case TURN_LEFT:
-                vector = vector.turnLeft();
+                vector = vector.left();
                 break;
             case TURN_RIGHT:
-                vector = vector.turnRight();
+                vector = vector.right();
                 break;
             case MOVE_FORWARD:
-                moveForward();
+                vector = vector.next();
                 break;
         }
-        return vector;
-    }
-
-    private Vector moveForward() {
-        switch (vector.direction){
-            case 'N':
-                vector = new Vector(vector.x, vector.y + 1, vector.direction);
-                break;
-            case 'E':
-                vector = new Vector(vector.x + 1, vector.y , vector.direction);
-                break;
-            case 'W':
-                vector = new Vector(vector.x - 1, vector.y, vector.direction);
-                break;
-            case 'S':
-                vector = new Vector(vector.x, vector.y - 1, vector.direction);
-                break;
-
-        }
-
         return vector;
     }
 
