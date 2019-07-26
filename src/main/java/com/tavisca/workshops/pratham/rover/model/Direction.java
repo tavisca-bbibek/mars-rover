@@ -5,11 +5,15 @@ public enum Direction {
 
     private static Direction directionArray[] = values();
 
-    public Direction turnRight(){
-        return directionArray[(this.ordinal() + 1) % directionArray.length];
+    public Direction right() {
+        return directionArray[mod(this.ordinal() + 1, directionArray.length)];
     }
 
-    public Direction turnLeft(){
-        return directionArray[(this.ordinal() - 1) % directionArray.length];
+    public Direction left() {
+        return directionArray[mod(this.ordinal() - 1, directionArray.length)];
+    }
+
+    private int mod(int a, int b) {
+        return ((a % b) + b) % b;
     }
 }

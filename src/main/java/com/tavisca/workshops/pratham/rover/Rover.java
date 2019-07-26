@@ -1,9 +1,10 @@
 package com.tavisca.workshops.pratham.rover;
 
 import com.tavisca.workshops.pratham.rover.model.Command;
+import com.tavisca.workshops.pratham.rover.model.Vector;
 
 public class Rover {
-    private  Vector vector;
+    private Vector vector;
 
     public Rover(Vector initialVector) {
         vector = initialVector;
